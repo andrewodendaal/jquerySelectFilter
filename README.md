@@ -15,9 +15,9 @@ id: Math.random().toString().split(".").join(""),
 name: "jquerySelectFilterValue",
 style: "",
 defaultvalue: "Select..",
-optionslist: ["<a href='javascript:;' data-id='test1'>test1</a>",
-			"<a href='javascript:;' data-id='test2'>test2</a>",
-			"<a href='javascript:;' data-id='test3'>test3</a>"],
+optionslist: ["test1",
+			"test2",
+			"test3"],
 callbackadd: function(data) {}
 ```
 
@@ -40,8 +40,8 @@ $("#selectFilter").jquerySelectFilter({
 	name: "some_name",
 	style: "width:250px",
 	defaultvalue: "Select..",
-	optionslist: ["<a href='javascript:;' data-id='option1'>option1</a>",
-				"<a href='javascript:;' data-id='option2'>option2</a>",
+	optionslist: ["option1",
+				"option2",
 	callbackadd: function(data) {
 		console.log(data);
 	}
