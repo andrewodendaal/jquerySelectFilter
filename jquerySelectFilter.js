@@ -8,9 +8,7 @@
 			name: "jquerySelectFilterValue",
 			style: "",
 			defaultvalue: "Select..",
-			optionslist: ["<a href='javascript:;' data-id='test1'>test1</a>",
-				"<a href='javascript:;' data-id='test2'>test2</a>",
-				"<a href='javascript:;' data-id='test3'>test3</a>"],
+			optionslist: ["test1","test2","test3"],
 			callbackadd: function(data) {}
 		}, options);
 
@@ -24,7 +22,7 @@
 							<div class='jquerySelectFilterContainer__select'id='jquerySelectFilterContainer__select_"+settings.id+"'>";
 
 		for (var i=0; i<settings.optionslist.length; i++) {
-			html += settings.optionslist[i];
+			html += "<a href='javascript:;' data-id='"+settings.optionslist[i]+"'>"+settings.optionslist[i]+"</a>"; ;
 		}
 
 		html += "			</div> \
