@@ -22,3 +22,13 @@ callbackadd: function(data) {}
 ```
 
 `style` is the css style you would like to associate to the grouped element, such as `width:250px`
+
+###Basic usage
+
+```
+<input type="hidden" id="selectFilter" name="selectFilter" value="" />
+```
+
+```
+$("#selectFilter").jquerySelectFilter();
+```
