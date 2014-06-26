@@ -33,5 +33,3 @@ $("#selectFilter").jquerySelectFilter({
 	addnewvalue: "Add new.."
 });
 ```
-
-`style` is the css style you would like to associate to the grouped element, such as `width:250px`
