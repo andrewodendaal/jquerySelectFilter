@@ -15,9 +15,7 @@ id: Math.random().toString().split(".").join(""),
 name: "jquerySelectFilterValue",
 style: "",
 defaultvalue: "Select..",
-optionslist: ["test1",
-			"test2",
-			"test3"],
+optionslist: ["test1","test2","test3"],
 callbackadd: function(data) {}
 ```
 
@@ -40,8 +38,7 @@ $("#selectFilter").jquerySelectFilter({
 	name: "some_name",
 	style: "width:250px",
 	defaultvalue: "Select..",
-	optionslist: ["option1",
-				"option2",
+	optionslist: ["option1","option2"],
 	callbackadd: function(data) {
 		console.log(data);
 	}
