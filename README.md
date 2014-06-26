@@ -38,10 +38,11 @@ $("#selectFilter").jquerySelectFilter({
 	name: "some_name",
 	style: "width:250px",
 	defaultvalue: "Select..",
-	optionslist: ["option1","option2"],
-	callbackadd: function(data) {
-		console.log(data);
-	}
+	optionslist: ["test1","test2","test3"],
+	callbackadd: function(data) {},
+	actionadd: function(data) {},
+	addnewtype: "input",
+	addnewvalue: "Add new.."
 });
 ```
 ```
