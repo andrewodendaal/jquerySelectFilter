@@ -1,24 +1,24 @@
-.dropdownFilterContainer {
+.jquerySelectFilterContainer {
 	position: relative;
 	display: inline-block;
 	height: 25px;
 	width: 150px;
 }
-	.dropdownFilterContainer_simple {
+	.jquerySelectFilterContainer_simple {
 		position: absolute;
 		border: 1px solid #cccccc;
 		padding: 5px;
 		background-color: #fff;
 	}
-		.dropdownFilterContainer_simple span {
+		.jquerySelectFilterContainer_simple span {
 			font-size:12px;
 		}
-		.dropdownFilterContainer_simple span.arrow {
+		.jquerySelectFilterContainer_simple span.arrow {
 			float: right;
 			position: relative;
 			top: 3px;
 		}
-	.dropdownFilterContainer_advanced {
+	.jquerySelectFilterContainer_advanced {
 		position: absolute;
 		display: none;
 		border: 1px solid #cccccc;
@@ -26,34 +26,34 @@
 		padding: 5px;
 		box-shadow: 0 0 10px #aaa;
 	}
-	.dropdownFilterContainer__search {
+	.jquerySelectFilterContainer__search {
 
 	}
-		.dropdownFilterContainer__search input {
+		.jquerySelectFilterContainer__search input {
 			font-size: 12px;
 			padding: 4px;
 			height: auto;
 			margin: 0;
 		}
-	.dropdownFilterContainer__select {
+	.jquerySelectFilterContainer__select {
 		height: 100px;
 		overflow-y: scroll;
 		margin: 4px 0 4px 0;
 	}
-		.dropdownFilterContainer__select a {
+		.jquerySelectFilterContainer__select a {
 			display: block;
 			padding: 4px;
 			text-decoration: none;
 			color: #000;
 			font-size: 12px;
 		}
-			.dropdownFilterContainer__select a:hover {
+			.jquerySelectFilterContainer__select a:hover {
 				background-color: #eee;
 			}
-	.dropdownFilterContainer__add {
+	.jquerySelectFilterContainer__add {
 
 	}
-	.dropdownFilterContainer__add input {
+	.jquerySelectFilterContainer__add input {
 		font-size: 12px;
 		padding: 4px;
 		height: auto;
