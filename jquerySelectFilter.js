@@ -9,7 +9,10 @@
 			style: "",
 			defaultvalue: "Select..",
 			optionslist: ["test1","test2","test3"],
-			callbackadd: function(data) {}
+			callbackadd: function(data) {},
+			actionadd: function(data) {},
+			addnewtype: "input",
+			addnewvalue: "Add new.."
 		}, options);
 
 
@@ -26,9 +29,18 @@
 		}
 
 		html += "			</div> \
-							<div class='jquerySelectFilterContainer__add'id='jquerySelectFilterContainer__add_"+settings.id+"'> \
-								<input id='txt' type='text' placeholder='Add new..' /> \
-							</div> \
+							<div class='jquerySelectFilterContainer__add'id='jquerySelectFilterContainer__add_"+settings.id+"'>";
+
+		if (settings.addnewtype=="input") {
+			html += "			<input id='txt' type='text' placeholder='"+settings.addnewvalue+"' />";
+		} else if(settings.addnewtype=="button") {
+			html += "			<input id='txt' type='button' value='"+settings.addnewvalue+"' />";
+		} else {
+			html += "			<input id='txt' type='text' placeholder='"+settings.addnewvalue+"' />";
+		}
+
+
+		html += "			</div> \
 							<input type='hidden' class='jquerySelectFilterHiddenValue'id='jquerySelectFilterHiddenValue_"+settings.id+"' name='"+settings.name+"' value='DEFAULT VALUE' /> \
 						</div> \
 					</div> \
@@ -54,19 +66,26 @@
 		$("#jquerySelectFilterContainer__select_"+settings.id+" a").on("click", function() {
 			jquerySelectFilterUpdateValue($(this).attr("data-id"), $(this).html());
 		});
-		$("#jquerySelectFilterContainer__add_"+settings.id+" input").keypress(function(e) {
-			var value = $("#jquerySelectFilterContainer__add_"+settings.id+" input").val();
-			if(e.which == 13) {
 
-				settings.callbackadd(value);
+		if (settings.addnewtype=="input") {
+			$("#jquerySelectFilterContainer__add_"+settings.id+" input").keypress(function(e) {
+				var value = $("#jquerySelectFilterContainer__add_"+settings.id+" input").val();
+				if(e.which == 13) {
 
-				$("#jquerySelectFilterContainer__select_"+settings.id).append('<a href="javascript:;" data-id="'+value+'">'+value+'</a>');
-				jquerySelectFilterUpdateValue(value, value);
-				$("#jquerySelectFilterContainer__select_"+settings.id+" a").off().on("click", function() {
-					jquerySelectFilterUpdateValue($(this).attr("data-id"), $(this).html());
-				});
-			}
-		});
+					settings.callbackadd(value);
+
+					$("#jquerySelectFilterContainer__select_"+settings.id).append('<a href="javascript:;" data-id="'+value+'">'+value+'</a>');
+					jquerySelectFilterUpdateValue(value, value);
+					$("#jquerySelectFilterContainer__select_"+settings.id+" a").off().on("click", function() {
+						jquerySelectFilterUpdateValue($(this).attr("data-id"), $(this).html());
+					});
+				}
+			});
+		} else if (settings.addnewtype=="button") {
+			$("#jquerySelectFilterContainer__add_"+settings.id+" input").click(function(e) {
+				settings.callbackadd();
+			});
+		}
 
 		$("#jquerySelectFilterContainer_"+settings.id).on("mouseover", function() {
 			$("#jquerySelectFilterContainer_simple_"+settings.id).hide();
