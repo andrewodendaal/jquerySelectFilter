@@ -16,8 +16,8 @@ name: "jquerySelectFilterValue",
 style: "",
 defaultvalue: "Select..",
 optionslist: ["<a href='javascript:;' data-id='test1'>test1</a>",
-		"<a href='javascript:;' data-id='test2'>test2</a>",
-		"<a href='javascript:;' data-id='test3'>test3</a>"],
+			"<a href='javascript:;' data-id='test2'>test2</a>",
+			"<a href='javascript:;' data-id='test3'>test3</a>"],
 callbackadd: function(data) {}
 ```
 
@@ -41,7 +41,7 @@ $("#selectFilter").jquerySelectFilter({
 	style: "width:250px",
 	defaultvalue: "Select..",
 	optionslist: ["<a href='javascript:;' data-id='option1'>option1</a>",
-			"<a href='javascript:;' data-id='option2'>option2</a>",
+				"<a href='javascript:;' data-id='option2'>option2</a>",
 	callbackadd: function(data) {
 		console.log(data);
 	}
