@@ -28,6 +28,7 @@ $("#selectFilter").jquerySelectFilter({
 	defaultvalue: "Select..",
 	optionslist: ["test1","test2","test3"],
 	callbackadd: function(data) {},
+	addnew: true,
 	actionadd: function(data) {},
 	addnewtype: "input",
 	addnewvalue: "Add new.."
