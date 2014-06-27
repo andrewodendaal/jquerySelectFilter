@@ -11,6 +11,7 @@
 			optionslist: ["test1","test2","test3"],
 			callbackadd: function(data) {},
 			actionadd: function(data) {},
+			addnew: true,
 			addnewtype: "input",
 			addnewvalue: "Add new.."
 		}, options);
@@ -28,20 +29,23 @@
 			html += "<a href='javascript:;' data-id='"+settings.optionslist[i]+"'>"+settings.optionslist[i]+"</a>"; ;
 		}
 
-		html += "			</div> \
-							<div class='jquerySelectFilterContainer__add'id='jquerySelectFilterContainer__add_"+settings.id+"'>";
+		html += "			</div>";
 
-		if (settings.addnewtype=="input") {
-			html += "			<input id='txt' type='text' placeholder='"+settings.addnewvalue+"' />";
-		} else if(settings.addnewtype=="button") {
-			html += "			<input id='txt' type='button' value='"+settings.addnewvalue+"' />";
-		} else {
-			html += "			<input id='txt' type='text' placeholder='"+settings.addnewvalue+"' />";
+		if (settings.addnew) {
+			html +- "		<div class='jquerySelectFilterContainer__add'id='jquerySelectFilterContainer__add_"+settings.id+"'>";
+
+			if (settings.addnewtype=="input") {
+				html += "			<input id='txt' type='text' placeholder='"+settings.addnewvalue+"' />";
+			} else if(settings.addnewtype=="button") {
+				html += "			<input id='txt' type='button' value='"+settings.addnewvalue+"' />";
+			} else {
+				html += "			<input id='txt' type='text' placeholder='"+settings.addnewvalue+"' />";
+			}
+
+
+			html += "			</div>";
 		}
-
-
-		html += "			</div> \
-							<input type='hidden' class='jquerySelectFilterHiddenValue'id='jquerySelectFilterHiddenValue_"+settings.id+"' name='"+settings.name+"' value='DEFAULT VALUE' /> \
+		html += "			<input type='hidden' class='jquerySelectFilterHiddenValue'id='jquerySelectFilterHiddenValue_"+settings.id+"' name='"+settings.name+"' value='DEFAULT VALUE' /> \
 						</div> \
 					</div> \
 				</div>";
