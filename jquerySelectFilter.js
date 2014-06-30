@@ -1,13 +1,15 @@
 (function($) {
 	$.fn.jquerySelectFilter = function( options ) {
 
+        var _defaultvalue = "Select..";
+
 		var original_input = $(this);
 
 		var settings = $.extend({
 			id: Math.random().toString().split(".").join(""),
 			name: "jquerySelectFilterValue",
 			style: "",
-			defaultvalue: "Select..",
+			defaultvalue: _defaultvalue,
 			optionslist: ["test1","test2","test3"],
 			callbackadd: function(data) {},
 			actionadd: function(data) {},
@@ -16,6 +18,7 @@
 			addnewvalue: "Add new.."
 		}, options);
 
+        if (settings.defaultvalue!=_defaultvalue) original_input.val( settings.defaultvalue );
 
 		var html = "<div class='jquerySelectFilterContainer' id='jquerySelectFilterContainer_"+settings.id+"'> \
 						<div class='jquerySelectFilterContainer_simple' style='"+settings.style+"' id='jquerySelectFilterContainer_simple_"+settings.id+"'><span class='simple_value'>"+settings.defaultvalue+"</span><span class='arrow'>&#x25BC;</span></div> \
@@ -76,9 +79,9 @@
 				$("#jquerySelectFilterContainer__add_"+settings.id+" input").keypress(function(e) {
 					var _value = $("#jquerySelectFilterContainer__add_"+settings.id+" input").val();
 					if(e.which == 13) {
-	
+
 						settings.callbackadd(_value);
-	
+
 						$("#jquerySelectFilterContainer__select_"+settings.id).append('<a href="javascript:;" data-id="'+_value+'">'+_value+'</a>');
 						jquerySelectFilterUpdateValue(_value, _value);
 						$("#jquerySelectFilterContainer__select_"+settings.id+" a").off().on("click", function() {
