@@ -1,3 +1,7 @@
+/**
+ * Requires JSON.parse and JSON.stringify
+ */
+
 (function($) {
 	$.fn.jquerySelectFilter = function( options ) {
 
@@ -11,6 +15,8 @@
 			style: "",
 			defaultvalue: _defaultvalue,
 			optionslist: ["test1","test2","test3"],
+            optionslistkey: name,
+            callbackselect: function(data) {},
 			callbackadd: function(data) {},
 			actionadd: function(data) {},
 			addnew: true,
@@ -29,7 +35,8 @@
 							<div class='jquerySelectFilterContainer__select'id='jquerySelectFilterContainer__select_"+settings.id+"'>";
 
 		for (var i=0; i<settings.optionslist.length; i++) {
-			html += "<a href='javascript:;' data-id='"+settings.optionslist[i]+"'>"+settings.optionslist[i]+"</a>"; ;
+			if (typeof settings.optionslist[i]=="object") html += "<a href='javascript:;' data-obj='"+ JSON.stringify(settings.optionslist[i])+"' data-id='"+settings.optionslist[i][settings.optionslistkey]+"'>"+settings.optionslist[i][settings.optionslistkey]+"</a>";
+            else html += "<a href='javascript:;' data-obj='' data-id='"+settings.optionslist[i]+"'>"+settings.optionslist[i]+"</a>";
 		}
 
 		html += "			</div>";
@@ -71,7 +78,16 @@
 			$("#jquerySelectFilterContainer_"+settings.id).trigger("mouseout");
 		}
 		$("#jquerySelectFilterContainer__select_"+settings.id+" a").on("click", function() {
-			jquerySelectFilterUpdateValue($(this).attr("data-id"), $(this).html());
+
+            if ($(this).attr("data-obj")=="") {
+                jquerySelectFilterUpdateValue($(this).attr("data-id"), $(this).html());
+                settings.callbackselect($(this));
+            } else {
+                var _obj = JSON.parse($(this).attr("data-obj"));
+                jquerySelectFilterUpdateValue(_obj[settings.optionslistkey], $(this).html());
+                settings.callbackselect(_obj);
+            }
+
 		});
 
 		if (settings.addnew) {
@@ -91,7 +107,6 @@
 				});
 			} else if (settings.addnewtype=="button") {
 				$("#jquerySelectFilterContainer__add_"+settings.id+" input").click(function(e) {
-                    console.log("frds")
 					settings.callbackadd();
 				});
 			}
