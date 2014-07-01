@@ -35,7 +35,7 @@
 		html += "			</div>";
 
 		if (settings.addnew) {
-			html +- "		<div class='jquerySelectFilterContainer__add'id='jquerySelectFilterContainer__add_"+settings.id+"'>";
+			html += "		<div class='jquerySelectFilterContainer__add'id='jquerySelectFilterContainer__add_"+settings.id+"'>";
 
 			if (settings.addnewtype=="input") {
 				html += "		<input id='txt' type='text' placeholder='"+settings.addnewvalue+"' />";
@@ -91,6 +91,7 @@
 				});
 			} else if (settings.addnewtype=="button") {
 				$("#jquerySelectFilterContainer__add_"+settings.id+" input").click(function(e) {
+                    console.log("frds")
 					settings.callbackadd();
 				});
 			}
