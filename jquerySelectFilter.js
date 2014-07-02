@@ -16,7 +16,7 @@
 			defaultvalue: _defaultvalue,
 			optionslist: ["test1","test2","test3"],
             optionslistkey: name,
-            callbackselect: function(data) {},
+            callbackselect: function(data, that) {},
 			callbackadd: function(data) {},
 			actionadd: function(data) {},
 			addnew: true,
@@ -55,13 +55,14 @@
 
 			html += "		</div>";
 		}
+		
 		html += "			<input type='hidden' class='jquerySelectFilterHiddenValue'id='jquerySelectFilterHiddenValue_"+settings.id+"' name='"+settings.name+"' value='DEFAULT VALUE' /> \
 						</div> \
 					</div> \
 				</div>";
 
-		original_input.parent().append(html);
-
+		original_input.parent().append(html);	
+		
 		$("#jquerySelectFilterContainer__search_"+settings.id+" input").keyup(function() {
 			var value = $("#jquerySelectFilterContainer__search_"+settings.id+" input").val();
 			$("#jquerySelectFilterContainer__select_"+settings.id+" > a").each(function() {
@@ -81,11 +82,11 @@
 
             if ($(this).attr("data-obj")=="") {
                 jquerySelectFilterUpdateValue($(this).attr("data-id"), $(this).html());
-                settings.callbackselect($(this));
+                settings.callbackselect($(this), $(this));
             } else {
                 var _obj = JSON.parse($(this).attr("data-obj"));
                 jquerySelectFilterUpdateValue(_obj[settings.optionslistkey], $(this).html());
-                settings.callbackselect(_obj);
+                settings.callbackselect(_obj, $(this));
             }
 
 		});
