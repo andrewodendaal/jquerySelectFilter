@@ -22,7 +22,7 @@
             addnew: true,
             addnewtype: "input",
             addnewvalue: "Add new..",
-            addnewbuttonvalue: "Add",
+            addnewbuttonvalue: "Add"
         }, options);
 
         if (settings.defaultvalue != _defaultvalue) original_input.val(settings.defaultvalue);
