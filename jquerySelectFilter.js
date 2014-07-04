@@ -21,7 +21,8 @@
             actionadd: function(data) {},
             addnew: true,
             addnewtype: "input",
-            addnewvalue: "Add new.."
+            addnewvalue: "Add new..",
+            addnewbuttonvalue: "Add",
         }, options);
 
         if (settings.defaultvalue != _defaultvalue) original_input.val(settings.defaultvalue);
@@ -45,7 +46,7 @@
             html += "		<div class='jquerySelectFilterContainer__add'id='jquerySelectFilterContainer__add_" + settings.id + "'>";
 
             if (settings.addnewtype == "input") {
-                html += "		<input id='txt' type='text' placeholder='" + settings.addnewvalue + "' />";
+                html += "		<input id='txt' class='add-text' type='text' placeholder='" + settings.addnewvalue + "' /><input id='txt' type='button' class='add-button' value='" + settings.addnewbuttonvalue + "' />";
             } else if (settings.addnewtype == "button") {
                 html += "		<input id='txt' type='button' value='" + settings.addnewvalue + "' />";
             } else {
@@ -79,6 +80,18 @@
             $("#jquerySelectFilterContainer_" + settings.id).trigger("mouseout");
         }
 
+        function jquerySelectFilterAddValue() {
+            var _value = $("#jquerySelectFilterContainer__add_" + settings.id + " input").val();
+
+            settings.callbackadd(_value);
+
+            $("#jquerySelectFilterContainer__select_" + settings.id).append('<a href="javascript:;" data-id="' + _value + '">' + _value + '</a>');
+            jquerySelectFilterUpdateValue(_value, _value);
+            $("#jquerySelectFilterContainer__select_" + settings.id + " a").off().on("click", function() {
+                jquerySelectFilterUpdateValue($(this).attr("data-id"), $(this).html());
+            });
+        }        
+
         $("#jquerySelectFilterContainer__select_" + settings.id + " a").on("click", function() {
 
             if ($(this).attr("data-obj") == "") {
@@ -95,17 +108,14 @@
         if (settings.addnew) {
             if (settings.addnewtype == "input") {
                 $("#jquerySelectFilterContainer__add_" + settings.id + " input").keypress(function(e) {
-                    var _value = $("#jquerySelectFilterContainer__add_" + settings.id + " input").val();
+                   
                     if (e.which == 13) {
-
-                        settings.callbackadd(_value);
-
-                        $("#jquerySelectFilterContainer__select_" + settings.id).append('<a href="javascript:;" data-id="' + _value + '">' + _value + '</a>');
-                        jquerySelectFilterUpdateValue(_value, _value);
-                        $("#jquerySelectFilterContainer__select_" + settings.id + " a").off().on("click", function() {
-                            jquerySelectFilterUpdateValue($(this).attr("data-id"), $(this).html());
-                        });
+                      jquerySelectFilterAddValue();
                     }
+                });
+                $("#jquerySelectFilterContainer__add_" + settings.id + " .add-button").click(function(e) {
+                      jquerySelectFilterAddValue();
+                      return false;
                 });
             } else if (settings.addnewtype == "button") {
                 $("#jquerySelectFilterContainer__add_" + settings.id + " input").click(function(e) {
