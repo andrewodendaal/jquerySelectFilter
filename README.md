@@ -26,11 +26,14 @@ $("#selectFilter").jquerySelectFilter({
 	name: "some_name",
 	style: "width:250px",
 	defaultvalue: "Select..",
-	optionslist: ["test1","test2","test3"],
+	optionslist: ["test1", "test2", "test3"],
+	optionslistkey: name,
+	callbackselect: function(data, that) {},
 	callbackadd: function(data) {},
-	addnew: true,
 	actionadd: function(data) {},
+	addnew: true,
 	addnewtype: "input",
-	addnewvalue: "Add new.."
+	addnewvalue: "Add new..",
+	addnewbuttonvalue: "Add"
 });
 ```
