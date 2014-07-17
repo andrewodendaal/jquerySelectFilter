@@ -34,6 +34,7 @@ $("#selectFilter").jquerySelectFilter({
 	addnew: true,
 	addnewtype: "input",
 	addnewvalue: "Add new..",
-	addnewbuttonvalue: "Add"
+	addnewbuttonvalue: "Add",
+	replaceoptions: replaceOptions
 });
 ```
