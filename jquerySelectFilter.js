@@ -9,6 +9,13 @@
 
         var original_input = $(this);
 
+
+        var replaceOptions = function(options) {
+            settings.optionslist = options;
+            var html = renderOptions();
+            $("#jquerySelectFilterContainer__select_" + settings.id).html(html);
+        }
+
         var settings = $.extend({
             id: Math.random().toString().split(".").join(""),
             name: "jquerySelectFilterValue",
@@ -19,11 +26,23 @@
             callbackselect: function(data, that) {},
             callbackadd: function(data) {},
             actionadd: function(data) {},
+            onchange: function(event, value) {},
             addnew: true,
             addnewtype: "input",
             addnewvalue: "Add new..",
-            addnewbuttonvalue: "Add"
+            addnewbuttonvalue: "Add",
+            replaceoptions: replaceOptions
         }, options);
+
+
+        function renderOptions() {
+            var html = '';
+            for (var i = 0; i < settings.optionslist.length; i++) {
+                if (typeof settings.optionslist[i] == "object") html += "<a href='javascript:;' data-obj='" + JSON.stringify(settings.optionslist[i]) + "' data-id='" + settings.optionslist[i][settings.optionslistkey] + "'>" + settings.optionslist[i][settings.optionslistkey] + "</a>";
+                else html += "<a href='javascript:;' data-obj='' data-id='" + settings.optionslist[i] + "'>" + settings.optionslist[i] + "</a>";
+            }
+            return html;
+        }
 
         if (settings.defaultvalue != _defaultvalue) original_input.val(settings.defaultvalue);
 
@@ -35,10 +54,7 @@
 							</div> \
 							<div class='jquerySelectFilterContainer__select'id='jquerySelectFilterContainer__select_" + settings.id + "'>";
 
-        for (var i = 0; i < settings.optionslist.length; i++) {
-            if (typeof settings.optionslist[i] == "object") html += "<a href='javascript:;' data-obj='" + JSON.stringify(settings.optionslist[i]) + "' data-id='" + settings.optionslist[i][settings.optionslistkey] + "'>" + settings.optionslist[i][settings.optionslistkey] + "</a>";
-            else html += "<a href='javascript:;' data-obj='' data-id='" + settings.optionslist[i] + "'>" + settings.optionslist[i] + "</a>";
-        }
+        html += renderOptions();
 
         html += "			</div>";
 
@@ -64,8 +80,11 @@
 
         original_input.parent().append(html);
 
-        $("#jquerySelectFilterContainer__search_" + settings.id + " input").keyup(function() {
+        $("#jquerySelectFilterContainer__search_" + settings.id + " input").keyup(function(event) {
             var value = $("#jquerySelectFilterContainer__search_" + settings.id + " input").val();
+
+            settings.onchange(event, value, settings);
+
             $("#jquerySelectFilterContainer__select_" + settings.id + " > a").each(function() {
                 if ($(this).text().search(value) > -1) {
                     $(this).show();
@@ -74,6 +93,13 @@
                 }
             });
         });
+
+
+        
+
+        
+
+
         function jquerySelectFilterUpdateValue(id, value) {
             $("#jquerySelectFilterContainer_simple_" + settings.id + " span.simple_value").html(value);
             original_input.val(id);
@@ -83,7 +109,11 @@
         function jquerySelectFilterAddValue() {
             var _value = $("#jquerySelectFilterContainer__add_" + settings.id + " input").val();
 
-            settings.callbackadd(_value);
+            var editedValue = settings.callbackadd(_value);
+
+            if (editedValue) {
+                _value = editedValue;
+            }
 
             $("#jquerySelectFilterContainer__select_" + settings.id).append('<a href="javascript:;" data-id="' + _value + '">' + _value + '</a>');
             jquerySelectFilterUpdateValue(_value, _value);
@@ -92,7 +122,7 @@
             });
         }        
 
-        $("#jquerySelectFilterContainer__select_" + settings.id + " a").on("click", function() {
+        $("#jquerySelectFilterContainer__select_" + settings.id ).on("click", 'a', function() {
 
             if ($(this).attr("data-obj") == "") {
                 jquerySelectFilterUpdateValue($(this).attr("data-id"), $(this).html());
@@ -129,7 +159,7 @@
             $("#jquerySelectFilterContainer_advanced_" + settings.id).show();
             $("#jquerySelectFilterContainer__search_" + settings.id + " input").focus();
         });
-        $("#jquerySelectFilterContainer_" + settings.id).on("mouseout", function() {
+        $("#jquerySelectFilterContainer_" + settings.id).on("mouseleave", function() {
             $("#jquerySelectFilterContainer_advanced_" + settings.id).hide();
             $("#jquerySelectFilterContainer_simple_" + settings.id).show();
         });
