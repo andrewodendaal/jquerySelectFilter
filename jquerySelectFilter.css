@@ -9,14 +9,15 @@
 		border: 1px solid #cccccc;
 		padding: 5px;
 		background-color: #fff;
+		min-height: 25px;
 	}
 		.jquerySelectFilterContainer_simple span {
 			font-size:12px;
 		}
 		.jquerySelectFilterContainer_simple span.arrow {
-			float: right;
-			position: relative;
-			top: 3px;
+			right: 5px;
+			position: absolute;
+			top: 6px;
 		}
 	.jquerySelectFilterContainer_advanced {
 		position: absolute;
@@ -60,3 +61,13 @@
 		height: auto;
 		margin: 0;
 	}
+
+	.jquerySelectFilterContainer__add .add-text {
+		width:70%;
+		display: inline-block;
+	}
+	.jquerySelectFilterContainer__add .add-button {
+		width:25%;
+		display: inline-block;
+	}
+
