@@ -14,7 +14,7 @@
             settings.optionslist = options;
             var html = renderOptions();
             $("#jquerySelectFilterContainer__select_" + settings.id).html(html);
-        }
+        };
 
         var settings = $.extend({
             id: Math.random().toString().split(".").join(""),
@@ -62,7 +62,10 @@
             html += "		<div class='jquerySelectFilterContainer__add'id='jquerySelectFilterContainer__add_" + settings.id + "'>";
 
             if (settings.addnewtype == "input") {
-                html += "		<input id='txt' class='add-text' type='text' placeholder='" + settings.addnewvalue + "' /><input id='txt' type='button' class='add-button' value='" + settings.addnewbuttonvalue + "' />";
+                html += "<input id='txt' class='add-text' type='text' placeholder='" + settings.addnewvalue + "' /><input id='txt' type='button' class='add-button' value='" + settings.addnewbuttonvalue + "' />";
+            } else if (settings.addnewtype == "double-input") {
+                html += "<input id='txt' class='add-text split' type='text' placeholder='" + settings.addnewvalue[0] + "' /><input id='txt' class='add-text split' type='text' placeholder='" + settings.addnewvalue[1] + "' /><input id='txt' type='button' class='add-button' value='" + settings.addnewbuttonvalue + "' />";
+
             } else if (settings.addnewtype == "button") {
                 html += "		<input id='txt' type='button' value='" + settings.addnewvalue + "' />";
             } else {
@@ -86,19 +89,13 @@
             settings.onchange(event, value, settings);
 
             $("#jquerySelectFilterContainer__select_" + settings.id + " > a").each(function() {
-                if ($(this).text().search(value) > -1) {
-                    $(this).show();
+                if ($(this).text().toUpperCase().search(value.toUpperCase()) > -1) {
+                    $(this).show().addClass('visible').removeClass('hidden');
                 } else {
-                    $(this).hide();
+                    $(this).hide().addClass('hidden').removeClass('visible');
                 }
             });
         });
-
-
-        
-
-        
-
 
         function jquerySelectFilterUpdateValue(id, value) {
             $("#jquerySelectFilterContainer_simple_" + settings.id + " span.simple_value").html(value);
@@ -107,9 +104,20 @@
         }
 
         function jquerySelectFilterAddValue() {
-            var _value = $("#jquerySelectFilterContainer__add_" + settings.id + " input").val();
 
-            var editedValue = settings.callbackadd(_value);
+            if (settings.addnewtype == "double-input") {
+                var first = $("#jquerySelectFilterContainer__add_" + settings.id + " input:first").val();
+                var second = $("#jquerySelectFilterContainer__add_" + settings.id + " input:eq(1)").val();
+                var editedValue = settings.callbackadd(first,second);
+                var _value;
+                if (first && second) {
+                    var _value = first + ' ' + second;
+                }
+            }
+            else {
+                var _value = $("#jquerySelectFilterContainer__add_" + settings.id + " input").val();
+                var editedValue = settings.callbackadd(_value);
+            }
 
             if (editedValue) {
                 _value = editedValue;
@@ -120,7 +128,7 @@
             $("#jquerySelectFilterContainer__select_" + settings.id + " a").off().on("click", function() {
                 jquerySelectFilterUpdateValue($(this).attr("data-id"), $(this).html());
             });
-        }        
+        }
 
         $("#jquerySelectFilterContainer__select_" + settings.id ).on("click", 'a', function() {
 
@@ -136,9 +144,9 @@
         });
 
         if (settings.addnew) {
-            if (settings.addnewtype == "input") {
+            if (settings.addnewtype == "input" || settings.addnewtype == "double-input") {
                 $("#jquerySelectFilterContainer__add_" + settings.id + " input").keypress(function(e) {
-                   
+
                     if (e.which == 13) {
                       jquerySelectFilterAddValue();
                     }
@@ -157,7 +165,7 @@
         $("#jquerySelectFilterContainer_" + settings.id).on("mouseover", function() {
             $("#jquerySelectFilterContainer_simple_" + settings.id).hide();
             $("#jquerySelectFilterContainer_advanced_" + settings.id).show();
-            $("#jquerySelectFilterContainer__search_" + settings.id + " input").focus();
+            if (settings.addnewtype != "double-input") $("#jquerySelectFilterContainer__search_" + settings.id + " input").focus();
         });
         $("#jquerySelectFilterContainer_" + settings.id).on("mouseleave", function() {
             $("#jquerySelectFilterContainer_advanced_" + settings.id).hide();
@@ -176,4 +184,4 @@
         }, 1000);
 
     };
-})(jQuery)
+})(jQuery);
