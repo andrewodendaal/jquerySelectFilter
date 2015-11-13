@@ -5,7 +5,7 @@ An advanced select component with ability to add and filter through select eleme
 
 
 
-[View the examples](https://rawgit.com/andrewodendaal/jquerySelectFilter/master/examples.html)
+[View the examples](https://rawgit.com/ao/jquerySelectFilter/master/examples.html)
 
 
 
