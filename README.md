@@ -9,7 +9,7 @@ An advanced select component with ability to add and filter through select eleme
 
 
 
-###Basic usage
+### Basic usage
 
 ```html
 <input type="hidden" id="selectFilter" name="selectFilter" value="" />
